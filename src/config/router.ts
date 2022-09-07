@@ -9,12 +9,18 @@ Vue.use(Router);
 export enum Page {
   Hello = 'hello-world',
   NotFound = 'not-found',
+  Twitter = 'twitter'
 }
 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: '/buefy-sample',
+      name: 'buefy-sample',
+      component: require('@/pages/buefy-sample/buefy-sample.vue').default
+    },
     ...generatedRoutes,
     {
       path: '/',
@@ -26,6 +32,17 @@ export default new Router({
         import(
           /* webpackChunkName: "hello-world" */
           '@/pages/hello-world'),
+    },
+    {
+      path: '/twitter',
+      name: Page.Twitter,
+      meta: {
+        layout: 'simple',
+      },
+      component: () =>
+        import(
+          /* webpackChunkName: "twitter" */
+          '@/pages/twitter'),
     },
     {
       path: '*',

@@ -3,7 +3,7 @@
  */
 :root {
 	--typography-primary: #000000;
-	--typography-secondary: #201b1b;
+	--typography-secondary: #28262C;
 	--typography-error: #ac3838;
 	--typography-success: #3fb984;
 	--typography-light: #718096;
@@ -12,15 +12,21 @@
 	--button-success: #74b871;
 	--button-warning: #d3782d;
 	--button-error: #ff5555;
+	--border-primary: red;
 }
 
 .theme-color-preference {
+
 	/**
    * Dark Theme.
    * Override default colors to match theme.
    * Also, add theme specific element styling.
    */
 	&.dark {
-		// --typography-primary: #000;
+		--typography-primary: #F9F5FF;
+		--typography-secondary: #E4FDE1;
+		--typography-light: #93a6c2;
+		--app-background: #2c2e20;
+		--app-footer: #1c1e10;
 	}
 }
