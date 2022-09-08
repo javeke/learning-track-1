@@ -32,6 +32,7 @@ module.exports = {
         'success': 'var(--button-success)',
         'failure': 'var(--button-failure)',
       },
+      backdrop: '#0000003f',
       white: "#fff",
       twitter: {
         blue: '#1D9BF0',
@@ -91,7 +92,11 @@ module.exports = {
         'twitter-hero': "url('/lohp_en_1302x955.png')"
       },
       gridTemplateRows: {
-        'landing-layout': "1fr auto"
+        'landing-layout': "1fr auto",
+        "dashboard-layout-lg": "auto 1fr auto"
+      },
+      gridTemplateColumns: {
+        "dashboard-layout-lg": "auto 1fr"
       },
       fontFamily: {
         twitter: ['Open Sans', 'sans-serif']
