@@ -30,6 +30,7 @@ class Home extends Vue {
   constructor() {
     super();
     AppStore.initializeTransactionData();
+    this.refreshTransactions();
   }
 
   // --------------------------------------------------------------------------
