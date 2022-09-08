@@ -30,7 +30,6 @@ class Home extends Vue {
   constructor() {
     super();
     AppStore.initializeTransactionData();
-    AppStore.getTransactions();
   }
 
   // --------------------------------------------------------------------------
@@ -43,7 +42,7 @@ class Home extends Vue {
 
   private refreshTransactions() {
     // TODO: Implement this function
-    alert('Refreshing');
+    AppStore.getTransactions();
   }
 
   // --------------------------------------------------------------------------
