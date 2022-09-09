@@ -40,6 +40,10 @@ module.exports = {
         light: "#E1E7EA",
         dark: "rgb(15, 20, 25)",
         subtext: '#536472'
+      },
+      stock: {
+        buy: '#4B89DC',
+        sell: '#D94555'
       }
     },
     fontSize: {
