@@ -16,35 +16,20 @@
       <h1 class="text-lg md:text-3xl m-auto order-2">Bakayarou Dashboard</h1>
     </div>
 
-    <div
-      v-if="sidebarToggle"
-      class="
-        fixed
-        z-50
-        left-0
-        top-0
-        min-h-screen min-w-full
-        bg-backdrop
-        flex
-        md:hidden
-      "
-      @click="closeSidebar"
-    >
+    <b-modal v-model="sidebarToggle" class="md:hidden">
       <nav class="flex-1 flex items-center justify-center">
         <ul class="flex flex-col items-center justify-center gap-10">
           <li>
-            <a class="text-2xl font-bold text-typography-secondary">Home</a>
+            <a href="/" class="text-2xl font-bold text-white">Home</a>
           </li>
           <li>
-            <a class="text-2xl font-bold text-typography-secondary">Twitter</a>
+            <a href="/twitter" class="text-2xl font-bold text-white">Twitter</a>
           </li>
           <li>
-            <a class="text-2xl font-bold text-typography-secondary"
-              >Dashboard</a
-            >
+            <a href="/home" class="text-2xl font-bold text-white">Dashboard</a>
           </li>
         </ul>
       </nav>
-    </div>
+    </b-modal>
   </div>
 </template>

@@ -6,6 +6,7 @@
       <ul class="flex flex-col gap-4">
         <li>
           <a
+            href="/"
             class="
               text-typography-primary
               hover:text-twitter-light hover:bg-typography-primary
@@ -19,6 +20,7 @@
         </li>
         <li>
           <a
+            href="/twitter"
             class="
               text-typography-primary
               hover:text-twitter-light hover:bg-typography-primary
@@ -32,6 +34,7 @@
         </li>
         <li>
           <a
+            href="/home"
             class="
               text-typography-primary
               hover:text-twitter-light hover:bg-typography-primary

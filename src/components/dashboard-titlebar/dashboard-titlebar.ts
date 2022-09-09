@@ -36,9 +36,6 @@ class DashboardTitlebar extends Vue {
     this.sidebarToggle = true;
   }
 
-  private closeSidebar() {
-    this.sidebarToggle = false;
-  }
 
   // --------------------------------------------------------------------------
   // Event Handlers
