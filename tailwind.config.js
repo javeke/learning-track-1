@@ -1,5 +1,6 @@
 module.exports = {
   important: true,
+  mode: 'jit',
   purge: {
     content: ['./src/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
     // These options are passed through directly to PurgeCSS
