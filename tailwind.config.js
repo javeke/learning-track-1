@@ -42,8 +42,8 @@ module.exports = {
         subtext: '#536472'
       },
       stock: {
-        buy: '#4B89DC',
-        sell: '#D94555'
+        buy: '#36BC9B',
+        sell: '#967BDC'
       }
     },
     fontSize: {

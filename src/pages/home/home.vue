@@ -19,12 +19,20 @@
 
     <div class="mt-3">
       <b-table :data="transactionData">
-        <b-table-column label="Actions" width="100">
+        <b-table-column label="Actions" width="100" v-slot="props">
           <div class="flex gap-2">
-            <b-button>
+            <b-button
+              size="is-small"
+              @click="openUpdateTransactionModal(props.row)"
+              type="is-info"
+            >
               <b-icon icon="edit"></b-icon>
             </b-button>
-            <b-button>
+            <b-button
+              @click="removeTransaction(props.row)"
+              type="is-danger"
+              size="is-small"
+            >
               <b-icon icon="trash" />
             </b-button>
           </div>
@@ -54,7 +62,7 @@
         </b-table-column>
         <b-table-column
           field="order_price"
-          label="Order Price (JMD $)"
+          label="Order Price (JMD$)"
           numeric
           v-slot="props"
         >
@@ -66,6 +74,172 @@
       </b-table>
     </div>
 
-    <b-modal v-model="isAddingTransaction"> Modal is here </b-modal>
+    <!-- Create Transaction Modal -->
+
+    <b-modal v-model="isAddingTransaction" :can-cancel="['escape', 'x']">
+      <section>
+        <form class="bg-white rounded-lg p-5 flex flex-col gap-4">
+          <div class="text-center">
+            <h3>Create a new transaction</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="First Name" aria-label="First Name">
+              <b-input
+                placeholder="First Name"
+                v-model="newTransaction.first_name"
+              ></b-input>
+            </b-field>
+            <b-field label="Last Name" aria-label="Last Name">
+              <b-input
+                placeholder="Last Name"
+                v-model="newTransaction.last_name"
+              ></b-input>
+            </b-field>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="Stock Symbol" aria-label="Stock Symbol">
+              <b-select
+                placeholder="Choose a stock"
+                aria-placeholder="Choose a stock"
+                v-model="newTransaction.stock"
+              >
+                <option value="ONE" aria-valuetext="ONE">ONE</option>
+                <option value="DOLLA" aria-valuetext="DOLLA">DOLLA</option>
+                <option value="FESCO" aria-valuetext="FESCO">FESCO</option>
+                <option value="WIG" aria-valuetext="WIG">WIG</option>
+              </b-select>
+            </b-field>
+            <b-field label="Order Type" aria-label="Order Type">
+              <b-select
+                placeholder="Select an order type"
+                aria-placeholder="Select an order type"
+                v-model="newTransaction.order_type"
+              >
+                <option aria-valuetext="SELL" value="SELL">SELL</option>
+                <option aria-valuetext="BUY" value="BUY">BUY</option>
+              </b-select>
+            </b-field>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="Order Price" aria-label="Order Price">
+              <b-numberinput
+                step="0.01"
+                min="0"
+                aria-minus-label="decrement by 0.01"
+                aria-plus-label="increment by 0.01"
+                controls-alignment="right"
+                controls-position="compact"
+                placeholder="Order price per unit"
+                type="is-dark"
+                v-model="newTransaction.order_price"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="Units" aria-label="Units">
+              <b-numberinput
+                min="100"
+                controls-alignment="right"
+                controls-position="compact"
+                placeholder="Number of units"
+                type="is-dark"
+                v-model="newTransaction.quantity"
+              ></b-numberinput>
+            </b-field>
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <b-button
+              @click="createTransaction"
+              type="is-dark"
+              class="font-bold"
+              >Create</b-button
+            >
+            <b-button @click="closeAddingTransactionModal">Cancel</b-button>
+          </div>
+        </form>
+      </section>
+    </b-modal>
+
+    <!-- Update Transaction Modal -->
+
+    <b-modal v-model="isUpdatingTransaction" :can-cancel="['escape', 'x']">
+      <section>
+        <form class="bg-white rounded-lg p-5 flex flex-col gap-4">
+          <div class="text-center">
+            <h3>Update transaction</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="First Name" aria-label="First Name">
+              <b-input
+                placeholder="First Name"
+                v-model="updateTransaction.first_name"
+              ></b-input>
+            </b-field>
+            <b-field label="Last Name" aria-label="Last Name">
+              <b-input
+                placeholder="Last Name"
+                v-model="updateTransaction.last_name"
+              ></b-input>
+            </b-field>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="Stock Symbol" aria-label="Stock Symbol">
+              <b-select
+                placeholder="Choose a stock"
+                aria-placeholder="Choose a stock"
+                v-model="updateTransaction.stock"
+              >
+                <option value="ONE" aria-valuetext="ONE">ONE</option>
+                <option value="DOLLA" aria-valuetext="DOLLA">DOLLA</option>
+                <option value="FESCO" aria-valuetext="FESCO">FESCO</option>
+                <option value="WIG" aria-valuetext="WIG">WIG</option>
+              </b-select>
+            </b-field>
+            <b-field label="Order Type" aria-label="Order Type">
+              <b-select
+                placeholder="Select an order type"
+                aria-placeholder="Select an order type"
+                v-model="updateTransaction.order_type"
+              >
+                <option aria-valuetext="SELL" value="SELL">SELL</option>
+                <option aria-valuetext="BUY" value="BUY">BUY</option>
+              </b-select>
+            </b-field>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+            <b-field label="Order Price" aria-label="Order Price">
+              <b-numberinput
+                step="0.01"
+                min="0"
+                aria-minus-label="decrement by 0.01"
+                aria-plus-label="increment by 0.01"
+                controls-alignment="right"
+                controls-position="compact"
+                placeholder="Order price per unit"
+                type="is-dark"
+                v-model="updateTransaction.order_price"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="Units" aria-label="Units">
+              <b-numberinput
+                min="100"
+                controls-alignment="right"
+                controls-position="compact"
+                placeholder="Number of units"
+                type="is-dark"
+                v-model="updateTransaction.quantity"
+              ></b-numberinput>
+            </b-field>
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <b-button
+              @click="modifyTransaction"
+              type="is-dark"
+              class="font-bold"
+              >Update</b-button
+            >
+            <b-button @click="closeUpdatingTransactionModal">Cancel</b-button>
+          </div>
+        </form>
+      </section>
+    </b-modal>
   </div>
 </template>

@@ -47,8 +47,8 @@ class Store extends VuexModule {
   public initializeTransactionData() {
     this.setTransactionData(
       [
-        { id: 101, first_name: 'Julian', last_name: 'Kent', role: 'Head Baka', show: 'Smallville', rating: 90 },
-        { id: 102, first_name: 'Conner', last_name: 'O\'Brien', role: 'Usuratonkachi', show: 'Young Justice', rating: 70 },
+        { 'id': 101, 'first_name': 'Julian', 'last_name': 'Kent', 'order_type': 'SELL', 'stock': 'ONE', 'order_price': 3.02, 'quantity': 40000 },
+        { 'id': 102, 'first_name': 'Conner', 'last_name': 'O\'Brien', 'order_type': 'BUY', 'stock': 'WIG', 'order_price': 0.42, 'quantity': 2000 },
       ]
     );
   }
@@ -61,9 +61,63 @@ class Store extends VuexModule {
         this.setTransactionData(serviceResult.data as Transaction[]);
       })
       .catch((err) => {
+        // TODO: handle errors better
         alert('Request failed');
       });
+  }
 
+  @MultiParamAction()
+  public async createTransaction(transaction: Transaction) {
+    return transactionService
+      .createTransactionData(transaction)
+      .then((serviceResult) => {
+        this.transactionDataArray.push(serviceResult.data as Transaction);
+        this.setTransactionData(this.transactionDataArray);
+
+        return true;
+      })
+      .catch((err) => {
+        // TODO: handle errors better
+
+        return false;
+      });
+  }
+
+  @MultiParamAction()
+  public async updateTransaction(transactionId: number, updatedTransaction: Transaction) {
+    const targetTransactionIndex = this.transactionDataArray.findIndex(transaction => transaction.id === transactionId);
+
+    this.transactionDataArray[targetTransactionIndex] = updatedTransaction;
+
+    this.setTransactionData(this.transactionDataArray);
+
+    return transactionService
+      .updateTransaction(transactionId, updatedTransaction)
+      .then((serviceResult) => {
+
+        return true;
+      })
+      .catch((err) => {
+
+        return false;
+      });
+  }
+
+  @MultiParamAction()
+  public async deleteTransaction(transactionId: number) {
+    const updatedArray = this.transactionDataArray.filter(transaction => transaction.id !== transactionId);
+    this.setTransactionData(updatedArray);
+
+    return transactionService
+      .deleteTransaction(transactionId)
+      .then((serviceResult) => {
+
+        return true;
+      })
+      .catch((err) => {
+
+        return false;
+      });
   }
 
   // ------------------------------------------------------------------------
