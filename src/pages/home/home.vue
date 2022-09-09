@@ -58,7 +58,7 @@
           </span>
         </b-table-column>
         <b-table-column field="stock" label="Symbol" v-slot="props">
-          {{ props.row.stock }}
+          <strong>{{ props.row.stock }}</strong>
         </b-table-column>
         <b-table-column
           field="order_price"

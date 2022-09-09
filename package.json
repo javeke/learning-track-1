@@ -2,6 +2,9 @@
   "name": "learning-track-1",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "^14"
+  },
   "scripts": {
     "clear-library": "rimraf .library",
     "clone-library": "git clone https://github.com/realdecoy/design-system-components.git .library",

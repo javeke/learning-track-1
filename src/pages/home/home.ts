@@ -125,7 +125,7 @@ class Home extends Vue {
       message: `Are you sure you want to delete transaction ${transaction.id}?`,
       closeOnConfirm: true,
       confirmText: 'Delete',
-      type: "is-dark",
+      type: 'is-dark',
       onConfirm: () => {
         AppStore
           .deleteTransaction(transaction.id)
