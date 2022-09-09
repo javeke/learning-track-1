@@ -47,8 +47,8 @@ class Store extends VuexModule {
   public initializeTransactionData() {
     this.setTransactionData(
       [
-        { id: 101, first_name: 'Julian', last_name: 'Kent', role: 'Head Baka', show: 'Smallville', rating: 90 },
-        { id: 102, first_name: 'Conner', last_name: 'O\'Brien', role: 'Usuratonkachi', show: 'Young Justice', rating: 70 },
+        { 'id': 101, 'first_name': 'Julian', 'last_name': 'Kent', 'order_type': 'SELL', 'stock': 'ONE', 'order_price': 3.02, 'quantity': 40000 },
+        { 'id': 102, 'first_name': 'Conner', 'last_name': 'O\'Brien', 'order_type': 'BUY', 'stock': 'WIG', 'order_price': 0.42, 'quantity': 2000 },
       ]
     );
   }
