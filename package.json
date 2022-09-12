@@ -18,7 +18,8 @@
     "build": "vue-cli-service build",
     "lint": "npx tslint -p .",
     "lint:fix": "npx tslint --fix -p .",
-    "test:e2e": "echo \"Error: no e2e test specified\" && exit 1",
+    "test:e2e": "cypress open",
+    "test:e2e:headless": "cypress run",
     "test:unit": "echo \"Error: no unit test specified\" && exit 1",
     "launch-design-system": "cd node_modules/design-system && npm install && npm run serve:rdvue -- --port 9000",
     "serve:design-system": "run-s setup-ds-webpack launch-design-system"
@@ -47,12 +48,14 @@
     "ws": "^7.4.5"
   },
   "devDependencies": {
+    "@types/jest": "^29.0.1",
     "@types/node": "^10.14.8",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-typescript": "^3.4.0",
     "@vue/cli-service": "^4.3.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-preset-vue": "^2.0.2",
+    "cypress": "^10.7.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "node-sass": "^4.9.0",

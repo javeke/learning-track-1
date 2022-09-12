@@ -1,0 +1,9 @@
+{
+  "id": 150,
+  "first_name": "Samantha",
+  "last_name": "Grant",
+  "stock": "DOLLA",
+  "order_type": "BUY",
+  "order_price": 23.5,
+  "quantity": 12000
+}

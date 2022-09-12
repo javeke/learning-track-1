@@ -10,26 +10,33 @@
         class="md:ml-5 w-full md:w-auto"
         type="is-dark"
         icon-left="plus"
+        data-testid="add-transaction-btn"
         @click="openAddingTransactionModal"
       />
-      <b-button class="ml-auto w-full md:w-auto" @click="refreshTransactions">
+      <b-button
+        class="ml-auto w-full md:w-auto"
+        data-testid="refresh-transactions-btn"
+        @click="refreshTransactions"
+      >
         <b-icon icon="sync-alt" />
       </b-button>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3" data-testid="transaction-table">
       <b-table :data="transactionData">
         <b-table-column label="Actions" width="100" v-slot="props">
           <div class="flex gap-2">
             <b-button
               size="is-small"
               @click="openUpdateTransactionModal(props.row)"
+              :data-testid="`update-transaction-btn-${props.row.id}`"
               type="is-info"
             >
               <b-icon icon="edit"></b-icon>
             </b-button>
             <b-button
               @click="removeTransaction(props.row)"
+              :data-testid="`delete-transaction-btn-${props.row.id}`"
               type="is-danger"
               size="is-small"
             >
@@ -38,7 +45,9 @@
           </div>
         </b-table-column>
         <b-table-column field="id" label="ID" width="40" numeric v-slot="props">
-          {{ props.row.id }}
+          <span :data-testid="`transaction-id-cell-${props.row.id}`">{{
+            props.row.id
+          }}</span>
         </b-table-column>
         <b-table-column field="first_name" label="First Name" v-slot="props">
           {{ props.row.first_name }}
@@ -48,6 +57,7 @@
         </b-table-column>
         <b-table-column field="order_type" label="Order Type" v-slot="props">
           <span
+            :data-testid="`transaction-order-type-cell-${props.row.id}`"
             :class="{
               'bg-stock-sell': props.row.order_type === 'SELL',
               'bg-stock-buy': props.row.order_type === 'BUY',
@@ -85,12 +95,14 @@
           <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
             <b-field label="First Name" aria-label="First Name">
               <b-input
+                data-testid="add-transaction-form-first-name-input"
                 placeholder="First Name"
                 v-model="newTransaction.first_name"
               ></b-input>
             </b-field>
             <b-field label="Last Name" aria-label="Last Name">
               <b-input
+                data-testid="add-transaction-form-last-name-input"
                 placeholder="Last Name"
                 v-model="newTransaction.last_name"
               ></b-input>
@@ -99,6 +111,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
             <b-field label="Stock Symbol" aria-label="Stock Symbol">
               <b-select
+                data-testid="add-transaction-form-stock-select"
                 placeholder="Choose a stock"
                 aria-placeholder="Choose a stock"
                 v-model="newTransaction.stock"
@@ -111,6 +124,7 @@
             </b-field>
             <b-field label="Order Type" aria-label="Order Type">
               <b-select
+                data-testid="add-transaction-form-order-type-select"
                 placeholder="Select an order type"
                 aria-placeholder="Select an order type"
                 v-model="newTransaction.order_type"
@@ -125,6 +139,7 @@
               <b-numberinput
                 step="0.01"
                 min="0"
+                data-testid="add-transaction-form-order-price-input"
                 aria-minus-label="decrement by 0.01"
                 aria-plus-label="increment by 0.01"
                 controls-alignment="right"
@@ -137,6 +152,7 @@
             <b-field label="Units" aria-label="Units">
               <b-numberinput
                 min="100"
+                data-testid="add-transaction-form-units-input"
                 controls-alignment="right"
                 controls-position="compact"
                 placeholder="Number of units"
@@ -148,6 +164,7 @@
           <div class="flex items-center justify-center gap-4">
             <b-button
               @click="createTransaction"
+              data-testid="add-transaction-form-create-btn"
               type="is-dark"
               class="font-bold"
               >Create</b-button
@@ -170,12 +187,14 @@
             <b-field label="First Name" aria-label="First Name">
               <b-input
                 placeholder="First Name"
+                data-testid="update-transaction-form-first-name-input"
                 v-model="updateTransaction.first_name"
               ></b-input>
             </b-field>
             <b-field label="Last Name" aria-label="Last Name">
               <b-input
                 placeholder="Last Name"
+                data-testid="update-transaction-form-last-name-input"
                 v-model="updateTransaction.last_name"
               ></b-input>
             </b-field>
@@ -185,6 +204,7 @@
               <b-select
                 placeholder="Choose a stock"
                 aria-placeholder="Choose a stock"
+                data-testid="update-transaction-form-stock-select"
                 v-model="updateTransaction.stock"
               >
                 <option value="ONE" aria-valuetext="ONE">ONE</option>
@@ -197,6 +217,7 @@
               <b-select
                 placeholder="Select an order type"
                 aria-placeholder="Select an order type"
+                data-testid="update-transaction-form-order-type-select"
                 v-model="updateTransaction.order_type"
               >
                 <option aria-valuetext="SELL" value="SELL">SELL</option>
@@ -214,6 +235,7 @@
                 controls-alignment="right"
                 controls-position="compact"
                 placeholder="Order price per unit"
+                data-testid="update-transaction-form-order-price-input"
                 type="is-dark"
                 v-model="updateTransaction.order_price"
               ></b-numberinput>
@@ -224,6 +246,7 @@
                 controls-alignment="right"
                 controls-position="compact"
                 placeholder="Number of units"
+                data-testid="update-transaction-form-units-input"
                 type="is-dark"
                 v-model="updateTransaction.quantity"
               ></b-numberinput>
@@ -234,6 +257,7 @@
               @click="modifyTransaction"
               type="is-dark"
               class="font-bold"
+              data-testid="update-transaction-form-update-btn"
               >Update</b-button
             >
             <b-button @click="closeUpdatingTransactionModal">Cancel</b-button>
