@@ -54,15 +54,22 @@ class Store extends VuexModule {
   }
 
   @MultiParamAction()
-  public getTransactions() {
-    transactionService
+  public async getTransactions() {
+    return transactionService
       .getTransactionData()
       .then((serviceResult) => {
+        if (!serviceResult.success) {
+
+          return false;
+        }
         this.setTransactionData(serviceResult.data as Transaction[]);
+
+        return true;
       })
       .catch((err) => {
         // TODO: handle errors better
-        alert('Request failed');
+
+        return false;
       });
   }
 
@@ -71,6 +78,10 @@ class Store extends VuexModule {
     return transactionService
       .createTransactionData(transaction)
       .then((serviceResult) => {
+        if (!serviceResult.success) {
+
+          return false;
+        }
         this.transactionDataArray.push(serviceResult.data as Transaction);
         this.setTransactionData(this.transactionDataArray);
 
@@ -85,14 +96,17 @@ class Store extends VuexModule {
 
   @MultiParamAction()
   public async updateTransaction(transactionId: number, updatedTransaction: Transaction) {
-    const targetTransactionIndex = this.transactionDataArray.findIndex(transaction => transaction.id === transactionId);
-
-    this.transactionDataArray[targetTransactionIndex] = updatedTransaction;
-    this.setTransactionData(this.transactionDataArray);
-
     return transactionService
       .updateTransaction(transactionId, updatedTransaction)
       .then((serviceResult) => {
+        if (!serviceResult.success) {
+
+          return false;
+        }
+        const targetTransactionIndex = this.transactionDataArray.findIndex(transaction => transaction.id === transactionId);
+
+        this.transactionDataArray[targetTransactionIndex] = updatedTransaction;
+        this.setTransactionData(this.transactionDataArray);
 
         return true;
       })
@@ -104,12 +118,16 @@ class Store extends VuexModule {
 
   @MultiParamAction()
   public async deleteTransaction(transactionId: number) {
-    const updatedArray = this.transactionDataArray.filter(transaction => transaction.id !== transactionId);
-    this.setTransactionData(updatedArray);
-
     return transactionService
       .deleteTransaction(transactionId)
       .then((serviceResult) => {
+        if (!serviceResult.success) {
+
+          return false;
+        }
+
+        const updatedArray = this.transactionDataArray.filter(transaction => transaction.id !== transactionId);
+        this.setTransactionData(updatedArray);
 
         return true;
       })

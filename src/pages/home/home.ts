@@ -45,7 +45,18 @@ class Home extends Vue {
   // --------------------------------------------------------------------------
 
   private refreshTransactions() {
-    AppStore.getTransactions();
+    AppStore.getTransactions()
+      .then((result) => {
+        if (!result) {
+          throw new Error('Failed to create transaction');
+        };
+      })
+      .catch(() => {
+        this.$buefy.toast.open({
+          message: 'Connection request failed',
+          type: 'is-danger'
+        });
+      });
   }
 
   // --------------------------------------------------------------------------
@@ -73,7 +84,10 @@ class Home extends Vue {
 
     AppStore
       .createTransaction(this.newTransaction)
-      .then(() => {
+      .then((result) => {
+        if (!result) {
+          throw new Error('Failed to create transaction');
+        }
         this.$buefy.toast.open({
           message,
           type
@@ -105,7 +119,10 @@ class Home extends Vue {
   private modifyTransaction() {
     AppStore
       .updateTransaction(this.updateTransaction.id, this.updateTransaction)
-      .then(() => {
+      .then((result) => {
+        if (!result) {
+          throw new Error('Failed to update transaction');
+        }
         this.closeUpdatingTransactionModal();
         this.$buefy.toast.open({
           message: 'Transaction updated',
@@ -130,7 +147,11 @@ class Home extends Vue {
       onConfirm: () => {
         AppStore
           .deleteTransaction(transaction.id)
-          .then(() => {
+          .then((result) => {
+            if (!result) {
+              throw new Error('Failed to delete transaction');
+            }
+
             this.$buefy.toast.open({
               message: 'Transaction deleted',
               type: 'is-success'
