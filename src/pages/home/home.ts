@@ -5,9 +5,6 @@ import { Transaction } from '@/types';
 
 @Component({
   components: {},
-  computed: {
-    ...mapGetters('App', ['transactionData'])
-  },
   name: 'home',
 })
 class Home extends Vue {
@@ -24,6 +21,10 @@ class Home extends Vue {
   private updateTransaction: Transaction = {
     id: -1, first_name: '', last_name: '', order_price: 0, order_type: '', quantity: 0, stock: ''
   };
+
+  private get transactionData() {
+    return AppStore.transactionData;
+  }
 
   // --------------------------------------------------------------------------
   // Constructor
@@ -93,7 +94,7 @@ class Home extends Vue {
   }
 
   private openUpdateTransactionModal(transaction: Transaction) {
-    this.updateTransaction = transaction;
+    this.updateTransaction = { ...transaction };
     this.isUpdatingTransaction = true;
   }
 

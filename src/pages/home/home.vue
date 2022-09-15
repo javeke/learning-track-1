@@ -50,25 +50,26 @@
           }}</span>
         </b-table-column>
         <b-table-column field="first_name" label="First Name" v-slot="props">
-          {{ props.row.first_name }}
+          {{ transactionData[props.index].first_name }}
         </b-table-column>
         <b-table-column field="last_name" label="Last Name" v-slot="props">
-          {{ props.row.last_name }}
+          {{ transactionData[props.index].last_name }}
         </b-table-column>
         <b-table-column field="order_type" label="Order Type" v-slot="props">
           <span
             :data-testid="`transaction-order-type-cell-${props.row.id}`"
             :class="{
-              'bg-stock-sell': props.row.order_type === 'SELL',
-              'bg-stock-buy': props.row.order_type === 'BUY',
+              'bg-stock-sell':
+                transactionData[props.index].order_type === 'SELL',
+              'bg-stock-buy': transactionData[props.index].order_type === 'BUY',
             }"
             class="rounded px-3 py-1 text-white"
           >
-            {{ props.row.order_type }}
+            {{ transactionData[props.index].order_type }}
           </span>
         </b-table-column>
         <b-table-column field="stock" label="Symbol" v-slot="props">
-          <strong>{{ props.row.stock }}</strong>
+          <strong>{{ transactionData[props.index].stock }}</strong>
         </b-table-column>
         <b-table-column
           field="order_price"
@@ -76,10 +77,10 @@
           numeric
           v-slot="props"
         >
-          {{ props.row.order_price }}
+          {{ transactionData[props.index].order_price }}
         </b-table-column>
         <b-table-column field="quantity" label="Units" numeric v-slot="props">
-          {{ props.row.quantity }}
+          {{ transactionData[props.index].quantity }}
         </b-table-column>
       </b-table>
     </div>

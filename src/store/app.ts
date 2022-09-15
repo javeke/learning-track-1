@@ -88,7 +88,6 @@ class Store extends VuexModule {
     const targetTransactionIndex = this.transactionDataArray.findIndex(transaction => transaction.id === transactionId);
 
     this.transactionDataArray[targetTransactionIndex] = updatedTransaction;
-
     this.setTransactionData(this.transactionDataArray);
 
     return transactionService
