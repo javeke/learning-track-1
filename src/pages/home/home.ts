@@ -1,6 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AppStore } from '@/store/app';
-import { mapGetters } from 'vuex';
 import { Transaction } from '@/types';
 
 @Component({

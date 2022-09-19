@@ -1,4 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { BuefyNamespace } from "buefy";
 
 @Component({
   components: {},
