@@ -49,7 +49,7 @@ class Home extends Vue {
       .then((result) => {
         if (!result) {
           throw new Error('Failed to create transaction');
-        };
+        }
       })
       .catch(() => {
         this.$buefy.toast.open({
