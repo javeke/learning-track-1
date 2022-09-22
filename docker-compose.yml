@@ -3,8 +3,6 @@ version: '3.5'
 services:
   rdvue-base:
     container_name: rdvue-instance
-    build:
-      context: .
     image: javeke/rdvue-base
     env_file:
       - ./.env
