@@ -73,3 +73,10 @@ Create a **_.env.local_** file in the root of the Design System folder (found in
 ``` 
 npm run serve:design-system
 ```
+
+
+### Note:
+
+To deploy this application with Terraform and AWS, you will need SSH keys for [Real Decoy's Terraform Modules](https://bitbucket.org/realdecoyteam/infrastructure-as-code-templates) repository. 
+
+You will also need AWS IAM credentials for an AWS account to provision the resources. 
